@@ -1,39 +1,39 @@
-import path from 'path'
-import fs from 'fs'
-import YAML from 'yaml'
+import path from 'path';
+import fs from 'fs';
+
+import YAML from 'yaml';
 import { z } from 'zod';
 
 const configSchema = z.object({
   http: z.object({
     host: z.string(),
-    port: z.number()
+    port: z.number(),
   }),
   postgres: z.object({
     host: z.string(),
     port: z.number(),
     user: z.string(),
     password: z.string(),
-    db: z.string()
+    db: z.string(),
   }),
   jwt: z.object({
-    secret: z.string()
+    secret: z.string(),
   }),
   example: z.object({
-    message: z.string()
-  })
-})
+    message: z.string(),
+  }),
+});
 
 export type Config = z.infer<typeof configSchema>;
 
-const defaultConfigPath = 'config/config.yml'
+const defaultConfigPath = 'config/config.yml';
 
 const parseConfig = (): Config => {
-  const configAbsPath = path.resolve(process.cwd(), defaultConfigPath)
+  const configAbsPath = path.resolve(process.cwd(), defaultConfigPath);
 
-  const file = fs.readFileSync(configAbsPath, 'utf-8')
+  const file = fs.readFileSync(configAbsPath, 'utf-8');
 
-  const config: Config = YAML.parse(file)
-
+  const config: Config = YAML.parse(file);
 
   const result = configSchema.safeParse(config);
 
@@ -42,8 +42,8 @@ const parseConfig = (): Config => {
   }
 
   return result.data;
-}
+};
 
-export const config = parseConfig()
+export const config = parseConfig();
 
 export const devMode = process.env.NODE_ENV === 'development';

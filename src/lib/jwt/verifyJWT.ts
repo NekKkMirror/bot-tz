@@ -1,13 +1,13 @@
-import jwt, {JwtPayload} from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+
 import { config } from '@/config';
 
 export const verifyJWT = (token: string): JwtPayload | string => {
   try {
-    const data = jwt.verify(token, config.jwt.secret)
-    return data
-  }catch (e) {
+    return jwt.verify(token, config.jwt.secret);
+  } catch (e) {
     return {
-      id: null
-    }
+      id: null,
+    };
   }
-}
+};

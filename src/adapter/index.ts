@@ -5,7 +5,7 @@ import { AdapterParams } from './types';
 export type Adapter = {
   userRepository: UserRepository;
   exampleGateway: ExampleGateway;
-}
+};
 
 export const buildAdapter = (params: AdapterParams): Adapter => {
   const userRepository = buildUserRepository(params);
@@ -13,6 +13,6 @@ export const buildAdapter = (params: AdapterParams): Adapter => {
 
   return {
     userRepository,
-    exampleGateway
-  }
-}
+    exampleGateway,
+  };
+};

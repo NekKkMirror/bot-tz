@@ -10,7 +10,7 @@ export interface IUser extends User {}
  *          required:
  *            - id
  *            - created_at
- *          properties: 
+ *          properties:
  *            id:
  *                type: string
  *            email:

@@ -1,5 +1,6 @@
 import Express from 'express';
-import { config } from '@/config/index';
+
+import { config } from '@/config';
 
 const buildStart = (app: Express.Express) => {
   return (router: Express.Router) => {
@@ -12,13 +13,13 @@ const buildStart = (app: Express.Express) => {
     };
 
     return stop;
-  }
-}
+  };
+};
 
 export const buildServer = () => {
   const app = Express();
 
   return {
-    start: buildStart(app)
+    start: buildStart(app),
   };
-}
+};

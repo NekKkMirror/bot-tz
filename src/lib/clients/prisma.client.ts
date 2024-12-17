@@ -13,17 +13,17 @@ export const newClient = (config: {
         url: `postgresql://${config.user}:${config.password}@${config.host}:${config.port}/${config.db}?connection_limit=10`,
       },
     },
-  })
+  });
 
-  const getContextClient = (tx?: unknown)=>{
+  const getContextClient = (tx?: unknown) => {
     if (tx instanceof PrismaClient) {
-      return tx
+      return tx;
     }
-    return client
-  }
+    return client;
+  };
 
   return {
     client,
-    getContextClient
-  }
-}
+    getContextClient,
+  };
+};

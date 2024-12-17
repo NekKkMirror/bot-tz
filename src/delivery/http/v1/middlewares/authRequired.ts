@@ -1,38 +1,39 @@
-import { RequestHandler } from 'express';
+import Express from 'express';
 import httpStatus from 'http-status';
-import { verifyJWT } from '@/lib';
 import { JwtPayload } from 'jsonwebtoken';
 
-export const authRequired = ({ required = true } = {}): RequestHandler => (
-  async (req, res, next) => {
+import { verifyJWT } from '@/lib';
+import { IUserRequest } from '@/delivery/types';
+
+export const authRequired =
+  ({ required = true } = {}): Express.RequestHandler =>
+  async (req: IUserRequest, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (required && !token) {
       res.status(httpStatus.UNAUTHORIZED).json({
         error: {
-          message: 'UNAUTHORIZED'
-        }
+          message: 'UNAUTHORIZED',
+        },
       });
 
       return;
     }
 
-    const tokenPayload = token ? (verifyJWT(token) as JwtPayload & { id: string; }) : null
+    const tokenPayload = token ? (verifyJWT(token) as JwtPayload & { id: string }) : null;
 
     if (required && !tokenPayload?.id) {
       res.status(httpStatus.UNAUTHORIZED).json({
         error: {
-          message: 'UNAUTHORIZED'
-        }
+          message: 'UNAUTHORIZED',
+        },
       });
 
       return;
     }
 
-    // @ts-ignore
     req.user = {
-      id: tokenPayload?.id
+      id: tokenPayload?.id,
     };
     next();
-  }
-);
+  };

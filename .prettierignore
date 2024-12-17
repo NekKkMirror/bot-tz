@@ -1,0 +1,5 @@
+build
+dist
+*.log
+*.md
+node_modules

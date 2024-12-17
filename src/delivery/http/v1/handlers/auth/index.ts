@@ -1,12 +1,15 @@
 import Express from 'express';
+
+import { DeliveryParams } from '@/delivery/types';
+
+import { createRouteHandler } from '../../routeHandler';
+import { IHandler } from '../types';
+
 import { buildGetMe, GetMe } from './me';
 import { Refresh, buildRefresh } from './refresh';
 import { Authorize, buildAuthorize } from './authorize';
 import { Register, buildRegister } from './register';
-import { DeliveryParams } from '@/delivery/types';
 import { authorizationRules, getMeRules, refreshRules } from './rules';
-import { createRouteHandler } from '../../routeHandler';
-import { IHandler } from '../types';
 
 type Params = Pick<DeliveryParams, 'auth'>;
 
@@ -15,11 +18,11 @@ export type AuthMethods = {
   refresh: Refresh;
   authorize: Authorize;
   register: Register;
-}
+};
 
 const buildRegisterRoutes = (methods: AuthMethods) => {
   return (root: Express.Router) => {
-    const namespace = Express.Router()
+    const namespace = Express.Router();
 
     /**
      * @openapi
@@ -49,11 +52,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
      *                    refreshToken:
      *                      type: string
      */
-    namespace.post(
-      '/signin',
-      authorizationRules,
-      createRouteHandler(methods.authorize)
-    )
+    namespace.post('/signin', authorizationRules, createRouteHandler(methods.authorize));
 
     /**
      * @openapi
@@ -79,11 +78,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
      *                    user:
      *                      $ref: '#/components/entities/User'
      */
-    namespace.post(
-      '/signup',
-      authorizationRules,
-      createRouteHandler(methods.register)
-    )
+    namespace.post('/signup', authorizationRules, createRouteHandler(methods.register));
 
     /**
      * @openapi
@@ -111,11 +106,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
      *                    refreshToken:
      *                      type: string
      */
-    namespace.post(
-      '/refresh',
-      refreshRules,
-      createRouteHandler(methods.refresh)
-    )
+    namespace.post('/refresh', refreshRules, createRouteHandler(methods.refresh));
 
     /**
      * @openapi
@@ -133,30 +124,24 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
      *                schema:
      *                      $ref: '#/components/entities/User'
      */
-    namespace.get(
-      '/me', 
-      getMeRules, 
-      createRouteHandler(methods.getMe)
-    )
+    namespace.get('/me', getMeRules, createRouteHandler(methods.getMe));
 
-    root.use('/auth', namespace)
-  }
-}
+    root.use('/auth', namespace);
+  };
+};
 
 export const buildAuthHandler = (params: Params): IHandler => {
-  const getMe = buildGetMe(params)
-  const refresh = buildRefresh(params)
-  const authorize = buildAuthorize(params)
-  const register = buildRegister(params)
+  const getMe = buildGetMe(params);
+  const refresh = buildRefresh(params);
+  const authorize = buildAuthorize(params);
+  const register = buildRegister(params);
 
   return {
-    registerRoutes: buildRegisterRoutes(
-      {
-        getMe,
-        refresh,
-        authorize,
-        register
-      }
-    )
-  }
-}
+    registerRoutes: buildRegisterRoutes({
+      getMe,
+      refresh,
+      authorize,
+      register,
+    }),
+  };
+};

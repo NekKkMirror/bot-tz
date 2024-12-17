@@ -1,4 +1,5 @@
 import { UseCaseParams } from '@/domain/usecase/types';
+
 import { buildGetMe, GetMe } from './getMe';
 import { Refresh, buildRefresh } from './refresh';
 import { Authorize, buildAuthorize } from './authorize';
@@ -9,7 +10,7 @@ export type AuthUseCase = {
   refresh: Refresh;
   authorize: Authorize;
   register: Register;
-}
+};
 
 export const buildAuthUseCase = (params: UseCaseParams): AuthUseCase => {
   const getMe = buildGetMe(params);
@@ -21,6 +22,6 @@ export const buildAuthUseCase = (params: UseCaseParams): AuthUseCase => {
     getMe,
     refresh,
     authorize,
-    register
-  }
-}
+    register,
+  };
+};

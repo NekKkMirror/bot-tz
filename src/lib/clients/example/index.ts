@@ -8,12 +8,12 @@ export const newClient = ({ message }: Params): { client: ExampleClient } => {
   const client: ExampleClient = {
     hello() {
       console.log(message);
-    }
+    },
   };
 
   return {
-    client
+    client,
   };
-}
+};
 
 export * from './types';
