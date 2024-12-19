@@ -1,16 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-export const newClient = (config: {
-  user: string;
-  password: string;
-  port: number;
-  host: string;
-  db: string;
-}) => {
+import { config } from '@/config';
+
+export const newClient = () => {
   const client = new PrismaClient({
     datasources: {
       db: {
-        url: `postgresql://${config.user}:${config.password}@${config.host}:${config.port}/${config.db}?connection_limit=10`,
+        url: `${config.postgres.url}?connection_limit=10`,
       },
     },
   });

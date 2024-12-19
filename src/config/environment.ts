@@ -7,19 +7,10 @@ const environmentSchema = z.object({
   // Application
   APP_NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   APP_PORT: z.string().regex(/^\d+$/).transform(Number),
-  APP_IMAGE_NAME: z.string(),
-  APP_CONTAINER_NAME: z.string(),
-  APP_HOSTNAME: z.string(),
+  APP_HOST: z.string(),
 
   // Database
-  DB_IMAGE_NAME: z.string(),
-  DB_CONTAINER_NAME: z.string(),
-  DB_HOSTNAME: z.string(),
-  DB_HOST: z.string(),
-  DB_PORT: z.string().regex(/^\d+$/).transform(Number),
-  DB_USER: z.string(),
-  DB_PASSWORD: z.string(),
-  DB_NAME: z.string(),
+  DATABASE_URL: z.string(),
 
   // Security
   JWT_SECRET: z.string(),

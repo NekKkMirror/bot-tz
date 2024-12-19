@@ -9,6 +9,10 @@
     "start:prod": "cross-env NODE_ENV=production node build/app.js",
     "build:prod": "tsc && npx swc ./src -d build",
     "migrate:dev": "dotenv -e .env.development npx prisma db push",
+    "migrate:deploy": "dotenv -e .env npx prisma migrate deploy",
+    "db:push": "dotenv -e .env npx prisma db push",
+    "prisma:studio": "dotenv -e .env npx prisma studio",
+    "prisma:generate": "npx prisma generate",
     "test": "jest",
     "format": "npx prettier --write src && npx eslint src --ext .ts,.js --fix",
     "lint": "eslint ./src --ext .ts"

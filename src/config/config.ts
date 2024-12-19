@@ -3,14 +3,10 @@ import { environment } from './environment';
 export const config = {
   http: {
     port: environment.APP_PORT,
-    host: environment.APP_HOSTNAME,
+    host: environment.APP_HOST,
   },
   postgres: {
-    host: environment.DB_HOST,
-    port: environment.DB_PORT,
-    user: environment.DB_USER,
-    password: environment.DB_PASSWORD,
-    db: environment.DB_NAME,
+    url: environment.DATABASE_URL,
   },
   jwt: {
     secret: environment.JWT_SECRET,
