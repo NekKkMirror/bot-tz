@@ -5,13 +5,12 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development dotenv -e .env -- nodemon --watch \"./src/**/*\" --watch \"./config/config.yml\" --signal SIGTERM --exec node -r @swc-node/register ./src/app.ts",
+    "start:dev": "cross-env NODE_ENV=development nodemon --watch ./src --signal SIGTERM --exec node -r @swc-node/register ./src/app.ts",
     "start:prod": "cross-env NODE_ENV=production node build/app.js",
     "build:prod": "tsc && npx swc ./src -d build",
-    "migrate:dev": "dotenv -e .env npx prisma db push",
-    "migrate:prod": "npx prisma db push --accept-data-loss",
+    "migrate:dev": "dotenv -e .env.development npx prisma db push",
     "test": "jest",
-    "format": "npx prettier --write src && npx eslint . --ext .ts,.js --fix",
+    "format": "npx prettier --write src && npx eslint src --ext .ts,.js --fix",
     "lint": "eslint ./src --ext .ts"
   },
   "author": "The2Alert",
@@ -32,7 +31,7 @@
     "@types/swagger-jsdoc": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^8.18.1",
+    "@typescript-eslint/parser": "^6.21.0",
     "dotenv-cli": "^7.0.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
@@ -57,6 +56,7 @@
     "chalk": "4.1.2",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "express-winston": "^4.2.0",
@@ -69,7 +69,6 @@
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1",
-    "yaml": "^2.3.2",
     "zod": "^3.22.4"
   },
   "engines": {
