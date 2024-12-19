@@ -1,3 +1,2 @@
-run:
-	docker compose up -d --force-recreate db_dev
-	yarn start:dev
+run-dev:
+	docker compose -f docker-compose.development.yml up -d --force-recreate

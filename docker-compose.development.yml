@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    image: ${APP_IMAGE_NAME}
+    container_name: ${APP_CONTAINER_NAME}
+    hostname: ${APP_HOSTNAME}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    environment:
+      APP_NODE_ENV: "${APP_NODE_ENV}"
+      APP_PORT: "${APP_PORT}"
+
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: "${DB_NAME}"
+
+      JWT_SECRET: "${JWT_SECRET}"
+
+      EXAMPLE_MESSAGE: "${EXAMPLE_MESSAGE}"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:${PORT} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: npm run start:dev
+
+  db:
+    image: ${DB_IMAGE_NAME}
+    container_name: ${DB_CONTAINER_NAME}
+    hostname: ${DB_HOSTNAME}
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -h localhost -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_data:
