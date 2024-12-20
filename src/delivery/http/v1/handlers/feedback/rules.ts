@@ -2,7 +2,7 @@ import { check, param } from 'express-validator';
 
 import { paginationRules } from '@/delivery/http/v1/handlers/_common/rules';
 
-import { validateSchema } from '../../middlewares';
+import { authRequired, validateSchema } from '../../middlewares';
 
 /**
  * @openapi
@@ -12,13 +12,10 @@ import { validateSchema } from '../../middlewares';
  *          required:
  *             - title
  *             - description
- *             - authorId
  *          properties:
  *             title:
  *                type: string
  *             description:
- *                type: string
- *             authorId:
  *                type: string
  *             categoryId:
  *                type: string
@@ -36,9 +33,9 @@ export const createFeedbackRules = [
     .notEmpty()
     .isString()
     .withMessage('Description is required and must be a string'),
-  check('authorId').exists().notEmpty().isUUID().withMessage('Author ID must be a valid UUID'),
   check('categoryId').optional().isUUID().withMessage('Category ID must be a valid UUID'),
   check('statusId').optional().isUUID().withMessage('Status ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -55,6 +52,7 @@ export const createFeedbackRules = [
  */
 export const deleteFeedbackRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -71,6 +69,7 @@ export const deleteFeedbackRules = [
  */
 export const getFeedbackRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -99,6 +98,7 @@ export const findPaginateFeedbackRules = [
     .isIn(['createdAt', 'voteCount'])
     .withMessage('Invalid sortBy field'),
   ...paginationRules,
+  authRequired({}),
   validateSchema,
 ];
 
@@ -127,5 +127,6 @@ export const updateFeedbackRules = [
   check('description').optional().notEmpty().isString().withMessage('Description must be a string'),
   check('categoryId').optional().isUUID().withMessage('Category ID must be a valid UUID'),
   check('statusId').optional().isUUID().withMessage('Status ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];

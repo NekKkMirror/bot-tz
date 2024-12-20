@@ -25,6 +25,8 @@ const buildUpvoteRoutes = (methods: UpvoteMethods) => {
      * /upvotes:
      *   post:
      *     tags: [Upvote]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     requestBody:
@@ -49,6 +51,8 @@ const buildUpvoteRoutes = (methods: UpvoteMethods) => {
      * /upvotes/{id}:
      *   delete:
      *     tags: [Upvote]
+     *     security:
+     *       - bearerAuth: []
      *     parameters:
      *       - in: path
      *         name: id

@@ -29,6 +29,8 @@ const buildStatusRoutes = (methods: StatusMethods) => {
      * /statuses:
      *   post:
      *     tags: [Status]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     requestBody:
@@ -53,6 +55,8 @@ const buildStatusRoutes = (methods: StatusMethods) => {
      * /statuses:
      *   get:
      *     tags: [Status]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -88,6 +92,8 @@ const buildStatusRoutes = (methods: StatusMethods) => {
      * /statuses/{id}:
      *   get:
      *     tags: [Status]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -112,6 +118,8 @@ const buildStatusRoutes = (methods: StatusMethods) => {
      * /statuses/{id}:
      *   delete:
      *     tags: [Status]
+     *     security:
+     *       - bearerAuth: []
      *     parameters:
      *       - in: path
      *         name: id

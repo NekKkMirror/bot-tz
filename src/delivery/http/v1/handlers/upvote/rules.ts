@@ -1,6 +1,6 @@
 import { check, param } from 'express-validator';
 
-import { validateSchema } from '../../middlewares';
+import { authRequired, validateSchema } from '../../middlewares';
 
 /**
  * @openapi
@@ -8,17 +8,14 @@ import { validateSchema } from '../../middlewares';
  *   rules:
  *     createUpvote:
  *       required:
- *         - userId
  *         - feedbackId
  *       properties:
- *         userId:
- *           type: string
  *         feedbackId:
  *           type: string
  */
 export const createUpvoteRules = [
-  check('userId').exists().notEmpty().isUUID().withMessage('User ID must be a valid UUID'),
   check('feedbackId').exists().notEmpty().isUUID().withMessage('Feedback ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -35,5 +32,6 @@ export const createUpvoteRules = [
  */
 export const deleteUpvoteRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];

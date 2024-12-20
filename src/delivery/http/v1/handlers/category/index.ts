@@ -34,6 +34,8 @@ const buildCategoryRoutes = (methods: CategoryMethods) => {
      * /categories:
      *   post:
      *     tags: [Category]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     requestBody:
@@ -58,6 +60,8 @@ const buildCategoryRoutes = (methods: CategoryMethods) => {
      * /categories:
      *   get:
      *     tags: [Category]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -93,6 +97,8 @@ const buildCategoryRoutes = (methods: CategoryMethods) => {
      * /categories/{id}:
      *   get:
      *     tags: [Category]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -117,6 +123,8 @@ const buildCategoryRoutes = (methods: CategoryMethods) => {
      * /categories/{id}:
      *   delete:
      *     tags: [Category]
+     *     security:
+     *       - bearerAuth: []
      *     parameters:
      *       - in: path
      *         name: id

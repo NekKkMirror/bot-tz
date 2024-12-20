@@ -1,6 +1,6 @@
 import { check, query, param } from 'express-validator';
 
-import { validateSchema } from '../../middlewares';
+import { authRequired, validateSchema } from '../../middlewares';
 
 /**
  * @openapi
@@ -15,6 +15,7 @@ import { validateSchema } from '../../middlewares';
  */
 export const createCategoryRules = [
   check('name').exists().notEmpty().isString().withMessage('Name is required and must be a string'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -31,6 +32,7 @@ export const createCategoryRules = [
  */
 export const deleteCategoryRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -47,6 +49,7 @@ export const deleteCategoryRules = [
  */
 export const getCategoryRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
+  authRequired({}),
   validateSchema,
 ];
 
@@ -70,5 +73,6 @@ export const listCategoriesRules = [
     .isInt({ min: 1 })
     .withMessage('Take must be a positive integer greater than 0'),
   query('name').optional().isString().withMessage('Name must be a string'),
+  authRequired({}),
   validateSchema,
 ];

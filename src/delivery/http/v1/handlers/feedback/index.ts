@@ -37,6 +37,8 @@ const buildFeedbackRoutes = (methods: FeedbackMethods) => {
      * /feedbacks:
      *   post:
      *     tags: [Feedback]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     requestBody:
@@ -61,6 +63,8 @@ const buildFeedbackRoutes = (methods: FeedbackMethods) => {
      * /feedbacks:
      *   get:
      *     tags: [Feedback]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -121,6 +125,8 @@ const buildFeedbackRoutes = (methods: FeedbackMethods) => {
      * /feedbacks/{id}:
      *   get:
      *     tags: [Feedback]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
@@ -145,6 +151,8 @@ const buildFeedbackRoutes = (methods: FeedbackMethods) => {
      * /feedbacks/{id}:
      *   delete:
      *     tags: [Feedback]
+     *     security:
+     *       - bearerAuth: []
      *     parameters:
      *       - in: path
      *         name: id
@@ -163,6 +171,8 @@ const buildFeedbackRoutes = (methods: FeedbackMethods) => {
      * /feedbacks/{id}:
      *   patch:
      *     tags: [Feedback]
+     *     security:
+     *       - bearerAuth: []
      *     produces:
      *       - application/json
      *     parameters:
