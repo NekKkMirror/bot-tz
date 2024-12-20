@@ -3,11 +3,13 @@ import { buildStatusUseCase, StatusUseCase } from '@/domain/usecase/status';
 import { buildFeedbackUseCase, FeedbackUseCase } from '@/domain/usecase/feedback';
 import { AuthUseCase, buildAuthUseCase } from '@/domain/usecase/auth';
 import { buildExampleUseCase, ExampleUseCase } from '@/domain/usecase/example';
+import { buildUpvoteUseCase, UpvoteUseCase } from '@/domain/usecase/upvote';
 
 import { UseCaseParams } from './types';
 
 export type UseCase = {
   auth: AuthUseCase;
+  upvote: UpvoteUseCase;
   feedback: FeedbackUseCase;
   category: CategoryUseCase;
   status: StatusUseCase;
@@ -16,6 +18,7 @@ export type UseCase = {
 
 export const buildUseCase = (params: UseCaseParams): UseCase => {
   const auth = buildAuthUseCase(params);
+  const upvote = buildUpvoteUseCase(params);
   const feedback = buildFeedbackUseCase(params);
   const category = buildCategoryUseCase(params);
   const status = buildStatusUseCase(params);
@@ -23,6 +26,7 @@ export const buildUseCase = (params: UseCaseParams): UseCase => {
 
   return {
     auth,
+    upvote,
     feedback,
     category,
     status,
