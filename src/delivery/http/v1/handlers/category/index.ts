@@ -78,7 +78,7 @@ const buildCategoryRoutes = (methods: CategoryMethods) => {
      *         description: Name filter
      *     responses:
      *        200:
-     *           description: List of categories.
+     *           description: FindPaginate of categories.
      *           content:
      *              application/json:
      *                schema:

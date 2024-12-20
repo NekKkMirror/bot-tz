@@ -3,16 +3,18 @@ import Express from 'express';
 import { DeliveryParams } from '@/delivery/types';
 import { buildCategoryHandler } from '@/delivery/http/v1/handlers/category';
 import { buildStatusHandler } from '@/delivery/http/v1/handlers/status';
+import { buildFeedbackHandler } from '@/delivery/http/v1/handlers/feedback';
+import { buildAuthHandler } from '@/delivery/http/v1/handlers/auth';
+import { IHandler } from '@/delivery/http/v1/handlers/types';
 
-import { IHandler } from './types';
 import { buildExampleHandler } from './example';
-import { buildAuthHandler } from './auth';
 
 export const buildHandler = (params: DeliveryParams): Express.Router => {
   const router = Express.Router();
 
   const handlers: Array<IHandler> = [
     buildAuthHandler(params),
+    buildFeedbackHandler(params),
     buildCategoryHandler(params),
     buildStatusHandler(params),
     buildExampleHandler(params),

@@ -6,11 +6,14 @@ import {
   CategoryRepository,
   buildStatusRepository,
   StatusRepository,
+  buildFeedbackRepository,
+  FeedbackRepository,
 } from './repository';
 import { AdapterParams } from './types';
 
 export type Adapter = {
   userRepository: UserRepository;
+  feedbackRepository: FeedbackRepository;
   categoryRepository: CategoryRepository;
   statusRepository: StatusRepository;
 
@@ -19,6 +22,7 @@ export type Adapter = {
 
 export const buildAdapter = (params: AdapterParams): Adapter => {
   const userRepository = buildUserRepository(params);
+  const feedbackRepository = buildFeedbackRepository(params);
   const categoryRepository = buildCategoryRepository(params);
   const statusRepository = buildStatusRepository(params);
 
@@ -26,6 +30,7 @@ export const buildAdapter = (params: AdapterParams): Adapter => {
 
   return {
     userRepository,
+    feedbackRepository,
     categoryRepository,
     statusRepository,
 
