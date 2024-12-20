@@ -3,11 +3,11 @@ import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
 
 import { verifyJWT } from '@/lib';
-import { IUserRequest } from '@/delivery/types';
+import { AuthRequest } from '@/delivery/http/v1/handlers/types';
 
 export const authRequired =
   ({ required = true } = {}): Express.RequestHandler =>
-  async (req: IUserRequest, res, next) => {
+  async (req: AuthRequest, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (required && !token) {

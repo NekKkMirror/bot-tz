@@ -1,12 +1,12 @@
 import * as bcrypt from 'bcrypt';
 
-import { IUser } from '@/domain/entity/user';
+import { TSafeUser } from '@/domain/entity/user';
 import { Adapter } from '@/domain/types';
 
 export type CheckCredentials = (data: {
   email: string;
   password: string;
-}) => Promise<IUser | null | never>;
+}) => Promise<TSafeUser | null | never>;
 
 export const buildCheckCredentials = ({ userRepository }: Adapter): CheckCredentials => {
   return async ({ email, password }) => {
@@ -25,6 +25,7 @@ export const buildCheckCredentials = ({ userRepository }: Adapter): CheckCredent
         email: true,
         avatar: true,
         created_at: true,
+        password: true,
       },
     });
 
@@ -32,12 +33,13 @@ export const buildCheckCredentials = ({ userRepository }: Adapter): CheckCredent
       return null;
     }
 
-    const passwordsSame = await bcrypt.compare(password, user?.password);
+    const { password: storedPassword, ...res } = user;
+    const passwordsSame = await bcrypt.compare(password, storedPassword);
 
     if (!passwordsSame) {
       return null;
     }
 
-    return user;
+    return res;
   };
 };

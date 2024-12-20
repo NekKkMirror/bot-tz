@@ -2,7 +2,7 @@ import { UseCaseParams } from '@/domain/usecase/types';
 import { IUser } from '@/domain/entity/user';
 import { NotFoundError } from '@/domain/errors';
 
-export type GetMe = (data: { id: string }) => Promise<IUser | never>;
+export type GetMe = (data: { id?: string }) => Promise<IUser | never>;
 export const buildGetMe = ({ adapter }: UseCaseParams): GetMe => {
   return async ({ id }) => {
     const user = await adapter.userRepository.get({

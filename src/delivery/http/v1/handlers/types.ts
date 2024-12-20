@@ -5,7 +5,7 @@ export interface IHandler {
 }
 
 export interface AuthRequest extends Express.Request {
-  user: {
-    id: string;
+  user?: {
+    id?: string;
   };
 }

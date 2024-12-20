@@ -1,7 +1,7 @@
-import { IUser } from '@/domain/entity/user';
+import { TSafeUser } from '@/domain/entity/user';
 import { signJWT } from '@/lib';
 
-export type signAuthTokens = (params: { user: IUser; immortal?: boolean }) => Promise<
+export type signAuthTokens = (params: { user: TSafeUser; immortal?: boolean }) => Promise<
   | {
       accessToken: string;
       refreshToken: string;

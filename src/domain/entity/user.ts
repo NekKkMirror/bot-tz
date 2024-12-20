@@ -2,6 +2,8 @@ import { User } from '@prisma/client';
 
 export interface IUser extends User {}
 
+export type TSafeUser = Omit<IUser, 'password'>;
+
 /**
  * @openapi
  * components:

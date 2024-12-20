@@ -1,11 +1,11 @@
-import { IUser } from '@/domain/entity/user';
+import { TSafeUser } from '@/domain/entity/user';
 import { UnauthorizedError } from '@/domain/errors';
 
 import { UseCaseParams } from '../types';
 
 export type Authorize = (data: { email: string; password: string }) => Promise<
   | {
-      user: IUser;
+      user: TSafeUser;
       accessToken: string;
     }
   | never

@@ -1,6 +1,5 @@
 import { IExample } from '@/domain/entity/example';
-
-import { Adapter } from '../../types';
+import { Adapter } from '@/adapter';
 
 export type Hello = (data: { example: IExample }) => Promise<string>;
 
