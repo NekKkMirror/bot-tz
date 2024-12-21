@@ -11,39 +11,35 @@ USER node
 
 COPY --chown=node:node package*.json ./
 
-# Production dependencies stage
-# Install only production dependencies to minimize the final image size
-FROM base AS production-dependencies
-RUN npm install --omit=dev
+FROM base AS development-dependencies
 
-# Development dependencies stage
-# Install all dependencies (including devDependencies) for development mode
-FROM base AS dev-dependencies
 RUN npm install
 
-# Build stage for production
-# Copies the source code and builds the app for production
-FROM base AS build-prod
-COPY --chown=node:node . .
-RUN npm run build:prod
-
-# Development environment
-# Includes all dependencies and starts the application in development mode
 FROM base AS development
-COPY --from=dev-dependencies /home/node/app/node_modules ./node_modules
-COPY --chown=node:node . ./
-CMD ["npm", "run", "start:dev"]
 
-# Testing environment
-# Includes all dependencies and sets up the container for running tests
-FROM base AS testing
-COPY --from=dev-dependencies /home/node/app/node_modules ./node_modules
+COPY --from=development-dependencies /home/node/app/node_modules ./node_modules
 COPY --chown=node:node . ./
-CMD ["npm", "run", "test"]
 
-# Production environment
-# Includes only production dependencies and the prebuilt application
-FROM base AS production
+# Install dependencies and generate Prisma client
+FROM base AS production-dependencies
+
+RUN npm install
+COPY --chown=node:node prisma ./prisma
+
+RUN npx prisma generate
+
+# Build the application
+FROM base AS production-build
+
 COPY --from=production-dependencies /home/node/app/node_modules ./node_modules
-COPY --from=build-prod /home/node/app/build ./build
-CMD ["npm", "run", "start:prod"]
+COPY --from=production-dependencies /home/node/app/prisma ./prisma
+COPY --chown=node:node . .
+
+RUN npm run build:prod --omit=dev
+
+# Final production stage
+FROM base AS production
+
+COPY --from=production-dependencies /home/node/app/node_modules ./node_modules
+COPY --from=production-build /home/node/app/build ./build
+COPY --from=production-build /home/node/app/prisma ./prisma

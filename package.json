@@ -7,6 +7,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development nodemon --watch ./src --signal SIGTERM --exec node -r @swc-node/register ./src/app.ts",
     "start:prod": "cross-env NODE_ENV=production node build/app.js",
+    "t": "cross-env APP_NODE_ENV=production APP_HOST=0.0.0.0 APP_PORT=3000 APP_DRIVE_PATH=/home/node/drive DB_IMAGE_NAME=postgres:13 DB_CONTAINER_NAME=back-end-test-db DB_USER=prod DB_PASSWORD=prod DB_HOST=0.0.0.0 DB_PORT=5432 DB_NAME=prod DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME} JWT_SECRET=teet3 EXAMPLE_MESSAGE=1 node build/app.js",
     "build:prod": "tsc && npx swc ./src -d build",
     "migrate:dev": "dotenv -e .env.development npx prisma db push",
     "migrate:deploy": "dotenv -e .env npx prisma migrate deploy",
@@ -52,7 +53,8 @@
     "prisma": "^5.4.2",
     "regenerator-runtime": "^0.14.0",
     "ts-jest": "^29.1.1",
-    "typescript": "*"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
@@ -69,6 +71,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1",
     "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-dist": "^5.18.2",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1",
