@@ -24,11 +24,7 @@ export const createStatusRules = [
  * components:
  *   rules:
  *      deleteStatus:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const deleteStatusRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
@@ -41,11 +37,7 @@ export const deleteStatusRules = [
  * components:
  *   rules:
  *      getStatus:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const getStatusRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),

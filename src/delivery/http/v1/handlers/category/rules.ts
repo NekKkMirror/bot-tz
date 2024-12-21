@@ -24,11 +24,7 @@ export const createCategoryRules = [
  * components:
  *   rules:
  *      deleteCategory:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const deleteCategoryRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
@@ -41,11 +37,7 @@ export const deleteCategoryRules = [
  * components:
  *   rules:
  *      getCategory:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const getCategoryRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),

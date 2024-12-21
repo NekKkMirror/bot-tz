@@ -5,6 +5,7 @@ const environmentSchema = z.object({
   APP_NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   APP_PORT: z.string().regex(/^\d+$/).transform(Number),
   APP_HOST: z.string(),
+  APP_DRIVE_PATH: z.string(),
 
   // Database
   DATABASE_URL: z.string(),

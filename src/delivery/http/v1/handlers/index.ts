@@ -7,6 +7,7 @@ import { buildFeedbackHandler } from '@/delivery/http/v1/handlers/feedback';
 import { buildAuthHandler } from '@/delivery/http/v1/handlers/auth';
 import { IHandler } from '@/delivery/http/v1/handlers/types';
 import { buildUpvoteHandler } from '@/delivery/http/v1/handlers/upvote';
+import { buildUserHandler } from '@/delivery/http/v1/handlers/user';
 
 import { buildExampleHandler } from './example';
 
@@ -15,6 +16,7 @@ export const buildHandler = (params: DeliveryParams): Express.Router => {
 
   const handlers: Array<IHandler> = [
     buildAuthHandler(params),
+    buildUserHandler(params),
     buildUpvoteHandler(params),
     buildFeedbackHandler(params),
     buildCategoryHandler(params),

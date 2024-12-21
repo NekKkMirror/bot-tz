@@ -13,6 +13,7 @@ export const config = {
   },
   app: {
     env: environment.APP_NODE_ENV,
+    driveDir: environment.APP_DRIVE_PATH,
   },
   example: {
     message: environment.EXAMPLE_MESSAGE,

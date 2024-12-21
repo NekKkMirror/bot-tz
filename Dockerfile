@@ -2,9 +2,10 @@ ARG NODE_VERSION=22.12.0
 
 FROM node:${NODE_VERSION} AS base
 
-RUN mkdir -p /app && chown node:node /app
+RUN mkdir -p /home/node/app && chown node:node /home/node/app
+RUN mkdir -p /home/node/drive && chown node:node /home/node/drive
 
-WORKDIR /app
+WORKDIR /home/node/app
 
 USER node
 
@@ -29,20 +30,20 @@ RUN npm run build:prod
 # Development environment
 # Includes all dependencies and starts the application in development mode
 FROM base AS development
-COPY --from=dev-dependencies /app/node_modules ./node_modules
+COPY --from=dev-dependencies /home/node/app/node_modules ./node_modules
 COPY --chown=node:node . ./
 CMD ["npm", "run", "start:dev"]
 
 # Testing environment
 # Includes all dependencies and sets up the container for running tests
 FROM base AS testing
-COPY --from=dev-dependencies /app/node_modules ./node_modules
+COPY --from=dev-dependencies /home/node/app/node_modules ./node_modules
 COPY --chown=node:node . ./
 CMD ["npm", "run", "test"]
 
 # Production environment
 # Includes only production dependencies and the prebuilt application
 FROM base AS production
-COPY --from=production-dependencies /app/node_modules ./node_modules
-COPY --from=build-prod /app/build ./build
+COPY --from=production-dependencies /home/node/app/node_modules ./node_modules
+COPY --from=build-prod /home/node/app/build ./build
 CMD ["npm", "run", "start:prod"]

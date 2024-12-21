@@ -44,11 +44,7 @@ export const createFeedbackRules = [
  * components:
  *   rules:
  *      deleteFeedback:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const deleteFeedbackRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
@@ -61,11 +57,7 @@ export const deleteFeedbackRules = [
  * components:
  *   rules:
  *      getFeedback:
- *          required:
- *             - id
- *          properties:
- *             id:
- *                type: string
+ *        description: Authorization is required to access this resource.
  */
 export const getFeedbackRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),
@@ -107,11 +99,7 @@ export const findPaginateFeedbackRules = [
  * components:
  *   rules:
  *      updateFeedback:
- *          required:
- *             - id
  *          properties:
- *             id:
- *                type: string
  *             title:
  *                type: string
  *             description:

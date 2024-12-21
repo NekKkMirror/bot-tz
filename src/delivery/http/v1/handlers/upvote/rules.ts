@@ -23,12 +23,8 @@ export const createUpvoteRules = [
  * @openapi
  * components:
  *   rules:
- *     deleteUpvote:
- *       required:
- *         - id
- *       properties:
- *         id:
- *           type: string
+ *      deleteUpvote:
+ *        description: Authorization is required to access this resource.
  */
 export const deleteUpvoteRules = [
   param('id').exists().notEmpty().isUUID().withMessage('ID must be a valid UUID'),

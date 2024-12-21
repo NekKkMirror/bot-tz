@@ -33,7 +33,7 @@ export const authRequired =
     }
 
     req.user = {
-      id: tokenPayload?.id,
+      id: tokenPayload!.id,
     };
     next();
   };
